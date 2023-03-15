@@ -1,4 +1,4 @@
-alert("Calcule la nota final")
+alert("Obtenga su nota final.")
 
 const calcularNotafinal = () => {
     let nombreAlumno = '';
@@ -8,25 +8,21 @@ const calcularNotafinal = () => {
     let calcularDeNuevo = false;
 
     do {
-        nombreAlumno = prompt("Ingrese el nombre del alumno");
-        notaPrimerParcial = parseInt(prompt("Ingrese la nota del primer parcial"));
-        notaSegundoParcial = parseInt(prompt("Ingrese la nota del segundo parcial"));
+        nombreAlumno = prompt("Ingrese el nombre del alumno: ");
+        notaPrimerParcial = parseInt(prompt("Ingrese la nota del primer parcial: "));
+        notaSegundoParcial = parseInt(prompt("Ingrese la nota del segundo parcial: "));
 
 
         notaPrimerParcialValidada = validarNota(notaPrimerParcial);
         notaSegundoParcialValidada = validarNota(notaSegundoParcial);
 
         notaPromedio = calcularPromedio(notaPrimerParcialValidada, notaSegundoParcialValidada);
-        console.log(notaPromedio)
         if (notaPromedio >= 7){
-            alert("El alumno "+nombreAlumno+" promociona la materia con nota final de "+notaPromedio);
-            
+            alert("El alumno "+nombreAlumno+" promociona la materia. Nota final :"+notaPromedio+".");
         }else if (notaPromedio>=4 & notaPromedio<7){
-            alert("El alumno "+nombreAlumno+" regulariza la materia con nota final de "+notaPromedio+". Debe rendir un examen final.");
-           
+            alert("El alumno "+nombreAlumno+" regulariza la materia. Nota final de "+notaPromedio+". Debe rendir un examen final.");
         }else{
-            alert("El alumno "+nombreAlumno+" no promociona la materia con nota final de "+notaPromedio+". Debe recursar.");
-           
+            alert("El alumno "+nombreAlumno+" no aprueba la materia. Nota final: "+notaPromedio+". Debe recursar.");
         }
 
         calcularDeNuevo = confirm("Quiere calcular de nuevo?");
@@ -45,7 +41,6 @@ function validarNota(nota) {
 
 function calcularPromedio (notaPrimerParcial, notaSegundoParcial) {
     promedio = (notaPrimerParcial + notaSegundoParcial) / 2;
-    alert(promedio);
     return promedio;
 }
 
