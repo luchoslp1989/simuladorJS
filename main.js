@@ -10,11 +10,9 @@ const calcularNotafinal = () => {
     do {
         nombreAlumno = prompt("Ingrese el nombre del alumno: ");
         notaPrimerParcial = parseInt(prompt("Ingrese la nota del primer parcial: "));
+        let notaPrimerParcialValidada = validarNota(notaPrimerParcial);
         notaSegundoParcial = parseInt(prompt("Ingrese la nota del segundo parcial: "));
-
-
-        notaPrimerParcialValidada = validarNota(notaPrimerParcial);
-        notaSegundoParcialValidada = validarNota(notaSegundoParcial);
+        let notaSegundoParcialValidada = validarNota(notaSegundoParcial);
 
         notaPromedio = calcularPromedio(notaPrimerParcialValidada, notaSegundoParcialValidada);
         if (notaPromedio >= 7){
