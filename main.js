@@ -9,13 +9,14 @@ const calcularNotafinal = () => {
 
     do {
         nombreAlumno = prompt("Ingrese el nombre del alumno");
-        notaPrimerParcial = Number(prompt("Ingrese la nota del primer parcial"));
-        notaSegundoParcial = Number(prompt("Ingrese la nota del segundo parcial"));
+        notaPrimerParcial = parseInt(prompt("Ingrese la nota del primer parcial"));
+        notaSegundoParcial = parseInt(prompt("Ingrese la nota del segundo parcial"));
 
 
-        validarNotas(notaPrimerParcial,notaSegundoParcial);
+        notaPrimerParcialValidada = validarNota(notaPrimerParcial);
+        notaSegundoParcialValidada = validarNota(notaSegundoParcial);
 
-        notaPromedio = calcularPromedio(notaPrimerParcial, notaSegundoParcial);
+        notaPromedio = calcularPromedio(notaPrimerParcialValidada, notaSegundoParcialValidada);
         console.log(notaPromedio)
         if (notaPromedio >= 7){
             alert("El alumno "+nombreAlumno+" promociona la materia con nota final de "+notaPromedio);
@@ -33,14 +34,13 @@ const calcularNotafinal = () => {
 
 }
 
-function validarNotas(nota1, nota2) {
-    while (Number.isNaN(nota1) || Number.isNaN(nota2) ||
-    estaFueraDelRango(nota1) || estaFueraDelRango(nota2)) {
+function validarNota(nota) {
+    while (Number.isNaN(nota) || estaFueraDelRango(nota)) {
         alert("Debe ingresar notas validas");
-        notaPrimerParcial = Number(prompt("Ingrese la nota del primer parcial"));
-        notaSegundoParcial = Number(prompt("Ingrese la nota del segundo parcial"));
-        console.log(notaPrimerParcial,notaSegundoParcial);
+        nota = parseInt(prompt("Ingrese la nota"));
     }
+    notaValida = nota;
+    return notaValida;
 }
 
 function calcularPromedio (notaPrimerParcial, notaSegundoParcial) {
