@@ -1,41 +1,48 @@
 alert("Obtenga su nota final.")
 
-const calcularNotafinal = () => {
-    let nombreAlumno = '';
-    let notaPrimerParcial= 0;
-    let notaSegundoParcial = 0;
-    let notaPromedio = 0;
+const promovidos = []
+const regulares = []
+const recursantes = []
+
+const mostrarAlumnos = () => {
+    const listaAlumnos = alumnos.map(alumno => {
+        return 'Legajo: ' + alumno.legajo+', nombre: ' +alumno.nombre+'.'
+    })
+    calcularNotafinal(listaAlumnos)
+};
+
+const calcularNotafinal = (listaAlumnos) => {
+    // let nombreAlumno = '';
+    // let notaPrimerParcial= 0;
+    // let notaSegundoParcial = 0;
     let calcularDeNuevo = false;
 
     do {
-        nombreAlumno = prompt("Ingrese el nombre del alumno: ");
-        notaPrimerParcial = parseInt(prompt("Ingrese la nota del primer parcial: "));
-        let notaPrimerParcialValidada = validarNota(notaPrimerParcial);
-        notaSegundoParcial = parseInt(prompt("Ingrese la nota del segundo parcial: "));
-        let notaSegundoParcialValidada = validarNota(notaSegundoParcial);
+        legajoAlumno = parseInt(prompt("Ingrese el legajo del alumno: "+'\n\n'+listaAlumnos.join('\n')));
+        
+        const alumno = alumnos.find(alumno => alumno.legajo === legajoAlumno)
 
-        notaPromedio = calcularPromedio(notaPrimerParcialValidada, notaSegundoParcialValidada);
-        if (notaPromedio >= 7){
-            alert("El alumno "+nombreAlumno+" promociona la materia. Nota final :"+notaPromedio+".");
-        }else if (notaPromedio>=4 & notaPromedio<7){
-            alert("El alumno "+nombreAlumno+" regulariza la materia. Nota final de "+notaPromedio+". Debe rendir un examen final.");
-        }else{
-            alert("El alumno "+nombreAlumno+" no aprueba la materia. Nota final: "+notaPromedio+". Debe recursar.");
+        if (alumno) {
+            calcularCondicion(alumno)
+        } else {
+            alert('Legajo inexistente')
         }
+
+        
 
         calcularDeNuevo = confirm("Quiere calcular de nuevo?");
     } while (calcularDeNuevo);
 
 }
 
-function validarNota(nota) {
-    while (Number.isNaN(nota) || estaFueraDelRango(nota)) {
-        alert("Debe ingresar notas validas");
-        nota = parseInt(prompt("Ingrese la nota"));
-    }
-    notaValida = nota;
-    return notaValida;
-}
+// function validarNota(nota) {
+//     while (Number.isNaN(nota) || estaFueraDelRango(nota)) {
+//         alert("Debe ingresar notas validas");
+//         nota = parseInt(prompt("Ingrese la nota"));
+//     }
+//     notaValida = nota;
+//     return notaValida;
+// }
 
 function calcularPromedio (notaPrimerParcial, notaSegundoParcial) {
     promedio = (notaPrimerParcial + notaSegundoParcial) / 2;
@@ -50,4 +57,18 @@ function estaFueraDelRango(nota){
     }
 }
 
-calcularNotafinal();
+const calcularCondicion = (alumno) => {
+    notaPromedio = calcularPromedio(alumno.notaPrimerParcial, alumno.notaSegundoParcial);
+        if (notaPromedio >= 7){
+            promovidos.push(alumno)
+        }else if (notaPromedio>=4 & notaPromedio<7){
+            regulares.push(alumno);
+        }else{
+            recursantes.push(alumno);
+        }
+};
+
+mostrarAlumnos();
+console.log(promovidos);
+console.log(regulares);
+console.log(recursantes);
