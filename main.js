@@ -12,9 +12,6 @@ const mostrarAlumnos = () => {
 };
 
 const calcularNotafinal = (listaAlumnos) => {
-    // let nombreAlumno = '';
-    // let notaPrimerParcial= 0;
-    // let notaSegundoParcial = 0;
     let calcularDeNuevo = false;
 
     do {
@@ -23,7 +20,7 @@ const calcularNotafinal = (listaAlumnos) => {
         const alumno = alumnos.find(alumno => alumno.legajo === legajoAlumno)
 
         if (alumno) {
-            calcularCondicion(alumno)
+            calcularCondicion(alumno, legajoAlumno)
         } else {
             alert('Legajo inexistente')
         }
@@ -33,16 +30,10 @@ const calcularNotafinal = (listaAlumnos) => {
         calcularDeNuevo = confirm("Quiere calcular de nuevo?");
     } while (calcularDeNuevo);
 
+
+
 }
 
-// function validarNota(nota) {
-//     while (Number.isNaN(nota) || estaFueraDelRango(nota)) {
-//         alert("Debe ingresar notas validas");
-//         nota = parseInt(prompt("Ingrese la nota"));
-//     }
-//     notaValida = nota;
-//     return notaValida;
-// }
 
 function calcularPromedio (notaPrimerParcial, notaSegundoParcial) {
     promedio = (notaPrimerParcial + notaSegundoParcial) / 2;
@@ -57,18 +48,39 @@ function estaFueraDelRango(nota){
     }
 }
 
-const calcularCondicion = (alumno) => {
+const calcularCondicion = (alumno, legajoAlumno) => {
     notaPromedio = calcularPromedio(alumno.notaPrimerParcial, alumno.notaSegundoParcial);
         if (notaPromedio >= 7){
-            promovidos.push(alumno)
+            const alumnoRepetido = promovidos.some(repetido => repetido.legajo === legajoAlumno)
+            if (!alumnoRepetido){
+                promovidos.push(alumno)
+            }
         }else if (notaPromedio>=4 & notaPromedio<7){
-            regulares.push(alumno);
+            const alumnoRepetido = regulares.some(repetido => repetido.legajo === legajoAlumno)
+            if (!alumnoRepetido){
+                regulares.push(alumno)
+            }
         }else{
-            recursantes.push(alumno);
+            const alumnoRepetido = recursantes.some(repetido => repetido.legajo === legajoAlumno)
+            if (!alumnoRepetido){
+                recursantes.push(alumno)
+            }
         }
 };
 
+const mostrarResultados = () => {
+    const alumnosPromovidos = promovidos.map(alumno => {
+        return "Nombre: " + alumno.nombre
+    })
+    const alumnosRegulares = regulares.map(alumno => {
+        return "Nombre: " + alumno.nombre
+    })
+    const alumnosRecursantes = recursantes.map(alumno => {
+        return "Nombre: " + alumno.nombre
+    })
+
+    alert('PROMOVIDOS: '+'\n\n'+alumnosPromovidos.join('\n')+'.\n\n REGULARES: '+'\n\n'+alumnosRegulares.join('\n')+'.\n\n RECURSANTES: '+'\n\n'+alumnosRecursantes.join('\n')+'.')
+};
+
 mostrarAlumnos();
-console.log(promovidos);
-console.log(regulares);
-console.log(recursantes);
+mostrarResultados()
