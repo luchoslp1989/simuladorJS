@@ -27,7 +27,7 @@ const calcularNotafinal = (listaAlumnos) => {
 
         
 
-        calcularDeNuevo = confirm("Quiere calcular de nuevo?");
+        calcularDeNuevo = confirm("Quiere evaluar otro alumno?");
     } while (calcularDeNuevo);
 
 
